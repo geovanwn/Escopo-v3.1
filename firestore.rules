@@ -1,0 +1,104 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ==========================================
+    // Funções Auxiliares (Helper Functions)
+    // ==========================================
+
+    // Verifica se o usuário está autenticado
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Obtém os dados do usuário atual do Firestore
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    // Verifica se o usuário é o próprio dono do recurso (pelo ID do documento ou campo userId)
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    // Verifica se o recurso pertence ao usuário (campo userId no documento)
+    function isResourceOwner() {
+      return resource.data.userId == request.auth.uid;
+    }
+
+    // Verifica se o usuário tem a role 'Admin' no seu perfil do Firestore
+    function isAdmin() {
+      return isAuthenticated() && 
+        (getUserData().role == 'Admin' || 
+         getUserData().email == 'geovaniwn@gmail.com');
+    }
+
+    // Verifica se o usuário pertence à mesma empresa do recurso (Company Isolation)
+    function isSameCompany() {
+      return isAuthenticated() && 
+        (resource.data.companyId == getUserData().companyId || isAdmin());
+    }
+
+    // Validação de Permissões Granulares (Simulação de Custom Claims via Firestore)
+    function hasPermission(module, level) {
+      let user = getUserData();
+      return user.permissions[module] == level || user.permissions[module] == 'full' || user.role == 'Admin';
+    }
+
+    // ==========================================
+    // Regras de Coleções (Collection Rules)
+    // ==========================================
+
+    // Coleção de Usuários (Profiles)
+    match /users/{userId} {
+      // Usuário pode ler/escrever seu próprio perfil
+      allow read, write: if isOwner(userId) || isAdmin();
+
+      // Subcoleção de auditoria pessoal
+      match /audit_logs/{logId} {
+        allow read, write: if isOwner(userId) || isAdmin();
+      }
+    }
+
+    // Auditoria Global (Audit Logs)
+    match /auditLogs/{logId} {
+      // Qualquer autenticado pode criar logs (auditoria de suas ações)
+      allow create: if isAuthenticated();
+      // Apenas Admin ou o próprio usuário pode ler seus logs
+      allow read: if isResourceOwner() || isAdmin();
+      // Ninguém pode editar ou excluir logs (Imutabilidade)
+      allow update, delete: if false; 
+    }
+
+    // Coleções de Negócio (Empresas, Clientes, Produtos, etc.)
+    // Regra Padrão: Isolamento por UserID (Legado) ou CompanyID (Novo)
+    match /{collection}/{document} {
+      allow create: if isAuthenticated() && (
+        request.resource.data.userId == request.auth.uid || 
+        isAdmin()
+      );
+      
+      allow read, update, delete: if isAuthenticated() && (
+        resource.data.userId == request.auth.uid || 
+        resource.data.companyId == getUserData().companyId || // Acesso compartilhado na empresa
+        isAdmin()
+      );
+    }
+    
+    // Regras Específicas para Coleções Sensíveis (Financeiro, Fiscal)
+    match /invoices/{invoiceId} {
+      allow read: if isAuthenticated() && (isResourceOwner() || hasPermission('fiscal', 'read'));
+      allow write: if isAuthenticated() && (isResourceOwner() || hasPermission('fiscal', 'full'));
+    }
+
+    match /bankTransactions/{transId} {
+      allow read: if isAuthenticated() && (isResourceOwner() || hasPermission('financial', 'read'));
+      allow write: if isAuthenticated() && (isResourceOwner() || hasPermission('financial', 'full'));
+    }
+
+    match /employees/{empId} {
+      allow read: if isAuthenticated() && (isResourceOwner() || hasPermission('hr', 'read'));
+      allow write: if isAuthenticated() && (isResourceOwner() || hasPermission('hr', 'full'));
+    }
+  }
+}

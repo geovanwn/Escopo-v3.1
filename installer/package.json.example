@@ -1,0 +1,66 @@
+{
+  "scripts": {
+    "dev": "vite",
+    "dev:electron": "concurrently \"vite\" \"electron .\"",
+    "build": "tsc && vite build",
+    "build:electron": "npm run build && electron-builder --dir",
+    "build:win": "npm run build && electron-builder --win --x64",
+    "build:portable": "npm run build && electron-builder --win portable --x64",
+    "build:sfx": "powershell -ExecutionPolicy Bypass -File installer/build-sfx.ps1",
+    "build:sfx-signed": "powershell -ExecutionPolicy Bypass -File installer/build-sfx.ps1 -Sign",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "clean": "rimraf dist dist-electron releases",
+    "clean:all": "rimraf dist dist-electron releases node_modules",
+    "prepare": "husky install"
+  },
+  "build": {
+    "appId": "com.escopov3.app",
+    "productName": "EscopoV3",
+    "directories": {
+      "output": "dist-electron-build",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist-electron/**/*",
+      "dist/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "${productName}-${version}-${arch}-${target}.${ext}",
+      "publisherName": "EscopoV3 Sistemas",
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "EscopoV3",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "license": "LICENSE.txt",
+      "language": "1046",
+      "perMachine": true,
+      "runAfterFinish": true
+    },
+    "portable": {
+      "artifactName": "${productName}-Portable.exe"
+    },
+    "compression": "maximum",
+    "asar": true
+  }
+}

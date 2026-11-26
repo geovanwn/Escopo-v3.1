@@ -1,0 +1,1 @@
+$p = 'c:\Users\Geovani Silva\Documents\EscopoV3\EscopoV3 (1)~1\pages\Accounting.tsx'; $c = Get-Content $p; $c[835] = '                           </div>'; $c[836] = '                        </div>'; $c[837] = '                     </div>'; $c[838] = '                  </div>'; $c[839] = '               )}'; $c | Set-Content $p

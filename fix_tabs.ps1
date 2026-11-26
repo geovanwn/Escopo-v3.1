@@ -1,0 +1,1 @@
+$p = 'c:\Users\Geovani Silva\Documents\EscopoV3\EscopoV3 (1)~1\pages\Accounting.tsx'; $c = Get-Content $p; $c[1441] = '                {activeTab === ''audit'' && (() => {'; $c[1440] = ' '; $c[1534] = '                {activeTab === ''journal'' && ('; $c[1533] = ' '; $c[1644] = '                {activeTab === ''plano'' && ('; $c[1643] = ' '; $c | Set-Content $p

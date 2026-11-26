@@ -1,0 +1,170 @@
+[
+  {
+    "type": "Button",
+    "file": "Payroll.tsx",
+    "line": 1072,
+    "action": "() => setCompetenceDate(new Date(competenceDate.getFullYear() - 1, competenceDate.getMonth(), 1))",
+    "label": "-1 Ano"
+  },
+  {
+    "type": "button",
+    "file": "Payroll.tsx",
+    "line": 1072,
+    "action": "() => setCompetenceDate(new Date(competenceDate.getFullYear() - 1, competenceDate.getMonth(), 1))",
+    "label": "-1 Ano"
+  },
+  {
+    "type": "Button",
+    "file": "Payroll.tsx",
+    "line": 1073,
+    "action": "handlePrevMonth",
+    "label": ""
+  },
+  {
+    "type": "button",
+    "file": "Payroll.tsx",
+    "line": 1073,
+    "action": "handlePrevMonth",
+    "label": ""
+  },
+  {
+    "type": "Button",
+    "file": "Payroll.tsx",
+    "line": 1075,
+    "action": "handleNextMonth",
+    "label": ""
+  },
+  {
+    "type": "button",
+    "file": "Payroll.tsx",
+    "line": 1075,
+    "action": "handleNextMonth",
+    "label": ""
+  },
+  {
+    "type": "Button",
+    "file": "Payroll.tsx",
+    "line": 1076,
+    "action": "() => setCompetenceDate(new Date(competenceDate.getFullYear() + 1, competenceDate.getMonth(), 1))",
+    "label": "+1 Ano"
+  },
+  {
+    "type": "button",
+    "file": "Payroll.tsx",
+    "line": 1076,
+    "action": "() => setCompetenceDate(new Date(competenceDate.getFullYear() + 1, competenceDate.getMonth(), 1))",
+    "label": "+1 Ano"
+  },
+  {
+    "type": "Button",
+    "file": "Payroll.tsx",
+    "line": 1313,
+    "action": "() => setIsSidebarOpen(false)",
+    "label": ""
+  },
+  {
+    "type": "button",
+    "file": "Payroll.tsx",
+    "line": 1313,
+    "action": "() => setIsSidebarOpen(false)",
+    "label": ""
+  },
+  {
+    "type": "Button",
+    "file": "Payroll.tsx",
+    "line": 1560,
+    "action": "handlePrint",
+    "label": "Imprimir"
+  },
+  {
+    "type": "button",
+    "file": "Payroll.tsx",
+    "line": 1560,
+    "action": "handlePrint",
+    "label": "Imprimir"
+  },
+  {
+    "type": "Button",
+    "file": "TerminationConfig.tsx",
+    "line": 74,
+    "action": "onSimulate",
+    "label": "Calcular Rescisão"
+  },
+  {
+    "type": "button",
+    "file": "TerminationConfig.tsx",
+    "line": 74,
+    "action": "onSimulate",
+    "label": "Calcular Rescisão"
+  },
+  {
+    "type": "Button",
+    "file": "TerminationConfig.tsx",
+    "line": 75,
+    "action": "onSave",
+    "label": "Salvar Rescisão"
+  },
+  {
+    "type": "button",
+    "file": "TerminationConfig.tsx",
+    "line": 75,
+    "action": "onSave",
+    "label": "Salvar Rescisão"
+  },
+  {
+    "type": "Button",
+    "file": "ThirteenthConfig.tsx",
+    "line": 51,
+    "action": "onSimulate",
+    "label": "Calcular 13º"
+  },
+  {
+    "type": "button",
+    "file": "ThirteenthConfig.tsx",
+    "line": 51,
+    "action": "onSimulate",
+    "label": "Calcular 13º"
+  },
+  {
+    "type": "Button",
+    "file": "ThirteenthConfig.tsx",
+    "line": 52,
+    "action": "onSave",
+    "label": "Salvar 13º"
+  },
+  {
+    "type": "button",
+    "file": "ThirteenthConfig.tsx",
+    "line": 52,
+    "action": "onSave",
+    "label": "Salvar 13º"
+  },
+  {
+    "type": "Button",
+    "file": "VacationConfig.tsx",
+    "line": 52,
+    "action": "onSimulate",
+    "label": "Calcular Férias"
+  },
+  {
+    "type": "button",
+    "file": "VacationConfig.tsx",
+    "line": 52,
+    "action": "onSimulate",
+    "label": "Calcular Férias"
+  },
+  {
+    "type": "Button",
+    "file": "VacationConfig.tsx",
+    "line": 53,
+    "action": "onSave",
+    "label": "Salvar Férias"
+  },
+  {
+    "type": "button",
+    "file": "VacationConfig.tsx",
+    "line": 53,
+    "action": "onSave",
+    "label": "Salvar Férias"
+  }
+]
